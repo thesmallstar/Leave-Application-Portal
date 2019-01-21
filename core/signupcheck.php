@@ -31,7 +31,6 @@
             $PassAgain = md5(htmlentities($_POST['Passwordagain']));
         }
         else{        
-
             if(empty($passwordtest)){
                 $_SESSION['error'] ="Password Cannot be only spaces.";
                 header("location: ../usersignup.php"); 
@@ -41,7 +40,6 @@
                     //echo '<script language="javascript">alert("T header("Refresh: 1; url=../usersignup.php");
                     header("location: ../usersignup.php"); 
                     exit();
-
                 }
 
       
