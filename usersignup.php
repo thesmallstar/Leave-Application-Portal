@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="static/css/signup.css">
 <body>
 =======
+=======
+>>>>>>> 4a318cd... Squashed commit
 
 <?php session_start(); ?>
 
