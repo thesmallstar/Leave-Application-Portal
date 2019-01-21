@@ -21,8 +21,10 @@
         $emailtest=trim($_POST['Email']);
         $passwordtest=trim($_POST['Password']);
 
+
         if( !empty($nametest) && !empty($enrolltest) && !empty($emailtest) && !empty($passwordtest)){
             
+
             $Name = htmlentities($_POST['Name']);
             $Enroll = htmlentities($_POST['Enroll']);
             $Pass = md5(htmlentities($_POST['Password']));
@@ -30,6 +32,7 @@
             $PassAgain = md5(htmlentities($_POST['Passwordagain']));
         }
         else{        
+
             if(empty($passwordtest)){
                 $_SESSION['error'] ="Password Cannot be only spaces.";
                 header("location: ../usersignup.php"); 
@@ -39,6 +42,7 @@
                     //echo '<script language="javascript">alert("T header("Refresh: 1; url=../usersignup.php");
                     header("location: ../usersignup.php"); 
                     exit();
+
                 }
 
       
