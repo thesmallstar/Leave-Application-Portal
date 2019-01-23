@@ -24,11 +24,6 @@
             $Pass = md5(htmlentities($_POST['Password']));
             $Email = htmlentities($_POST['Email']);
         }
-<<<<<<< HEAD:signupcheck.php
-        else{
-                    echo '<script language="javascript">alert("Try Again!")</script>';
-                    header("Refresh: 1; url=usersignup.php");
-=======
         else{        
 
             if(empty($passwordtest)){
@@ -41,7 +36,6 @@
                     header("location: ../usersignup.php"); 
                     exit();
 
->>>>>>> 6e45332... Merge branch 'master' of https://github.com/thesmallstar/Leave-Application-Portal:core/signupcheck.php
                 }
 
       
@@ -57,10 +51,6 @@
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if($user != Null){
-<<<<<<< HEAD:signupcheck.php
-                echo '<script language="javascript"> alert("Email Already Exists") </script>' ;   
-                header("Refresh: 1; url=usersignup.php"); 
-=======
                 $_SESSION['error'] ="Email already exists, please use other email.";
                    
                 header("location: ../usersignup.php"); 
@@ -70,7 +60,6 @@
                    
                 header("location: ../usersignup.php"); 
                 exit();
->>>>>>> 6e45332... Merge branch 'master' of https://github.com/thesmallstar/Leave-Application-Portal:core/signupcheck.php
             }
 
             else{
@@ -78,15 +67,6 @@
                 $cmd = $sql->execute(['name' => $Name , 'enroll' => $Enroll, 'email' => $Email,'pass' => $Pass]);
 
                 if($cmd){
-<<<<<<< HEAD:signupcheck.php
-                      echo '<script language="javascript"> alert("Succesfully Registered , You can login now") </script>' ; 
-                    header("Refresh: 1; url=index.php"); 
-                }
-                  
-                else{
-                    echo '<script language="javascript"> alert("Try Again !") </script>' ;     
-                    header("Refresh: 1; url=usersignup.php");
-=======
                     $_SESSION['success'] ="Succesfully Registered , You can login now";
                    
                     header("location: ../usersignup.php"); 
@@ -100,7 +80,6 @@
                     header("location: ../usersignup.php"); 
                     exit();
                     
->>>>>>> 6e45332... Merge branch 'master' of https://github.com/thesmallstar/Leave-Application-Portal:core/signupcheck.php
                 }
                 
             }

@@ -143,14 +143,7 @@
 		<button><li class="btn rej_apps" >REJECTED</li></button>
 		<br>
 		<br>
-		
-		<button><li class="btn rej_apps"> ANALYTICS</li></button>
-		<br>
 
-<<<<<<< HEAD
-=======
-		
->>>>>>> 87b9ab2... Analytics button removed
 	</div>
 	</ul>
 	<div>
