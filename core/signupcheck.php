@@ -16,12 +16,9 @@
 
     else{
    
-        $nametest=trim($_POST['Name']);
-        $enrolltest=trim($_POST['Enroll']);
-        $emailtest=trim($_POST['Email']);
         $passwordtest=trim($_POST['Password']);
 
-        if( !empty($nametest) && !empty($enrolltest) && !empty($emailtest) && !empty($passwordtest)){
+        if( !empty($_POST['Name']) && !empty(trim($_POST['Enroll'])) && !empty(trim($_POST['Email'])) && !empty($passwordtest)){
             
 
             $Name = htmlentities($_POST['Name']);
