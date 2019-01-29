@@ -1,11 +1,17 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {font-family: 'Roboto', sans-serif;}
+
+h1.admin-heading {
+    text-align: center;
+}
 form {border: 3px solid #f1f1f1;}
 
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
-    display: inline-block;
+    display: block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
@@ -36,17 +42,20 @@ button:hover {
 }
 
 img.avatar {
-    width: 40%;
+    width: 15%;
     border-radius: 50%;
 }
 
 .container {
     padding: 16px;
+    margin: 0 auto;
+    align-content: center;
+    width: 35%;
+    
 }
 
 span.psw {
     float: right;
-    padding-top: 16px;
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -59,3 +68,40 @@ span.psw {
        width: 100%;
     }
 }
+
+@media screen and (max-width: 768px) {
+    input[type=email], input[type=password], input[type=text], select, .sub, form {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 480px) {
+    input[type=email], input[type=password], input[type=text], select, .sub, .container, img.avatar, .imgcontainer{
+      width: 320px;
+      margin-top: 0;
+      
+    }
+
+    img.avatar {
+        width: 35%;
+        height: 20%;
+        border-radius: 50%;
+    }
+  }
+
+ @media screen and (max-width: 320px) {
+    input[type=email], input[type=password], input[type=text], select, .sub, .container, img.avatar, .imgcontainer{
+      width: 275px;
+      margin-top: 0;
+      
+    }
+
+    img.avatar {
+        width: 35%;
+        height: 20%;
+        border-radius: 50%;
+    }
+  }
+

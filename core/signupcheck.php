@@ -1,32 +1,34 @@
 <?php 
-
+    
+   //work to do
+    /*
+        one email signup check for same email if used again
+        simple password error 
+    */
    require 'db.php' ;
    session_start();
 
  
     if(!isset($_POST['submit'])){
         echo '<script language="javascript"> alert("Access Denied") </script>'; 
-        header("Refresh: 1; url=usersignup.php");
+        header("Refresh: 1; url=../usersignup.php");
     }
 
     else{
    
-        $nametest=trim($_POST['Name']);
-        $enrolltest=trim($_POST['Enroll']);
-        $emailtest=trim($_POST['Email']);
-        $passwordtest=trim($_POST['Password']);
+    
 
-        if( !empty($nametest) && !empty($enrolltest) && !empty($emailtest) && !empty($passwordtest)){
+        if( !empty(trim($_POST['Name'])) && !empty(trim($_POST['Enroll'])) && !empty(trim($_POST['Email'])) && !empty(trim($_POST['Password']))){
             
 
             $Name = htmlentities($_POST['Name']);
             $Enroll = htmlentities($_POST['Enroll']);
             $Pass = md5(htmlentities($_POST['Password']));
             $Email = htmlentities($_POST['Email']);
+            $PassAgain = md5(htmlentities($_POST['Passwordagain']));
         }
         else{        
-
-            if(empty($passwordtest)){
+            if(empty(trim($_POST['Password']))){
                 $_SESSION['error'] ="Password Cannot be only spaces.";
                 header("location: ../usersignup.php"); 
                 exit();
@@ -35,7 +37,6 @@
                     //echo '<script language="javascript">alert("T header("Refresh: 1; url=../usersignup.php");
                     header("location: ../usersignup.php"); 
                     exit();
-
                 }
 
       
@@ -90,7 +91,7 @@
                 echo '<script language="javascript">';
                 echo '$sql . "<br>" . $e->getMessage();';
                 echo '</script>';   
-                header("Refresh: 1; url=usersignup.php");
+                header("Refresh: 1; url=../usersignup.php");
             }
 
         $connection = null;
