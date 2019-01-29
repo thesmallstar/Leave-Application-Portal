@@ -1,3 +1,13 @@
+<?php
+	
+	session_start();
+	if(!isset($_SESSION['user'])){  
+	 echo '<script language="javascript">alert("Please Login")</script>';      
+	   header("Refresh: 1; url=index.php"); 
+	   exit();
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,60 +28,59 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/4c124acc27.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-    <script src="./static/js/form.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script> -->
+    <!--<script src="./static/js/form.js"></script>-->
 </head>
 
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Leave Portal</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home
-
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Fill Form</a>
-                    <span class="sr-only">(current)</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Check Status</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">FAQ</a>
+                    <h3><a class="nav-link" href="student_dashboard.php"><- BACK TO Dashboard</a></h3>
                 </li>
             </ul>
-
+            <ul class="navbar-nav">
+                <li class="nav-item float-right">
+                    <h3><a class="nav-link" href="student_dashboard.php"><?php echo $_SESSION['user'] ?></a></h3>
+                </li>
+            </ul>
         </div>
     </nav>
     <!-- End Navbar -->
 
     <!-- Form -->
     <div class="container mt-5">
+  
+
         <form action="./core/application-submission.php" method="post" enctype="multipart/form-data">
+ 
+           
             <h2 class="text-center">Apply for Leave</h2>
+            <?php if (isset($_SESSION['error'])){
+echo "<span class='alert alert-danger'>";
+echo $_SESSION['error'];
+echo "</span>";
+    unset($_SESSION['error']);
+}
+
+?>
+   <?php if (isset($_SESSION['success'])){
+echo "<span class='alert alert-success'>";
+echo $_SESSION['success'];
+echo "</span>";
+    unset($_SESSION['success']);
+}
+
+?>
             <div class="row mt-5">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Name of the Student</label>
                         <input type="text" class="form-control" placeholder="" name="studentName">
-                    </div>
-                </div>
-                <!--  col-md-6   -->
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Roll Number</label>
-                        <input type="text" class="form-control" placeholder="" name="rollNumber">
                     </div>
                 </div>
                 <!--  col-md-6   -->
@@ -82,7 +91,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Branch</label>
-                        <input type="text" class="form-control" placeholder="" name="branch">
+                        <input type="text" class="form-control" placeholder="ECE/IT or ece/it" name="branch">
                     </div>
 
 
@@ -108,7 +117,7 @@
                 <div class="col-md-5" style="padding-right: 20px">
                     <div class="form-group">
                         <div class='input-group date' id='datepicker' data-date-format="dd-mm-yyyy">
-                            <input type='text' class="form-control" name="startDate" id="startDate" />
+                            <input type='date' class="form-control" placeholder="dd/mmm/yyyy" name="startDate" id="startDate" />
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar-alt fa-2x"></span>
                             </span>
@@ -120,7 +129,7 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class='input-group date' id='datepicker1' data-date-format="dd-mm-yyyy">
-                            <input type='text' class="form-control" name="endDate" />
+                            <input type='date' class="form-control" placeholder="dd/mmm/yyyy" name="endDate" id="endDate" />
                             <span class="input-group-addon">
                                 <i class="fa fa-calendar-alt fa-2x"></i>
                             </span>
@@ -156,7 +165,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Whether classes are scheduled or not during leave</label>
-                        <input type="text" class="form-control" placeholder="" name="classScheduledOnLeave">
+                        <input type="text" class="form-control" placeholder="YES/NO or yes/no" name="classScheduledOnLeave">
                     </div>
 
 
@@ -179,19 +188,10 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Mobile No.</label>
-                        <input type="tel" class="form-control" placeholder="" name="mobile">
+                        <input type="text" class="form-control" placeholder="" name="mobile">
                     </div>
 
 
-                </div>
-                <!--  col-md-6   -->
-
-                <div class="col-md-6">
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="">
-                    </div>
                 </div>
                 <!--  col-md-6   -->
             </div>
