@@ -10,9 +10,8 @@
 
 
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
-
-<h2>Login Form</h2>
 
 <form action="./core/verifylogin.php" method="post">
   <div class="imgcontainer">

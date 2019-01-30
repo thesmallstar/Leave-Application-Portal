@@ -8,18 +8,16 @@
 body{background: #2C3E50;
     background: -webkit-linear-gradient(to left, #4CA1AF, #2C3E50);
     background: linear-gradient(to left, #4CA1AF, #2C3E50);
-    overflow: hidden;
-    
 }
 .form
      {
         width: 340px;
-        height: 650px;
+        height: 700px;
         background: #e6e6e6;
         border-radius: 8px;
         box-shadow: 0 0 40px -10px #000;
         margin: auto;
-        margin-top: 8%;
+        margin-top: 2%;
         padding: 20px 30px;
         max-width: calc(100vw - 40px);
         box-sizing: border-box;
@@ -57,6 +55,10 @@ body{background: #2C3E50;
         border-bottom:2px solid #bebed2
         }
         input:focus{border-bottom:2px solid #78788c}
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active  {-webkit-box-shadow: 0 0 0 30px #e6e6e6 inset !important;}
         p:before{content:attr(type);
         display:block;margin:28px 0 0;
         font-size:14px;color:#5a5a5a}
