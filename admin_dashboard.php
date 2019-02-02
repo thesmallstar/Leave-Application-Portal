@@ -37,7 +37,9 @@ if(!isset($_SESSION['loggedin'])){
 			background-color: #111;
 			overflow-x: hidden;
 			padding-top: 20px;
-			background: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8) );
+			background: #42275a;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #734b6d, #42275a);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #734b6d, #42275a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 			background-size: cover;
 			box-shadow: 0 0 10px #7b7777;
 		}
@@ -127,7 +129,7 @@ if(!isset($_SESSION['loggedin'])){
 		}
 
 		tbody tr:hover {
-			background-color: #f5f5f5;
+			background-color: #c2bfda;
 			cursor: pointer
 		}
 
@@ -137,7 +139,8 @@ if(!isset($_SESSION['loggedin'])){
 			 transition-duration: 0.4s;
 			 background-color:white;
                         color: black;
-			 border: 2px solid #796ed4;
+						border: 0;
+			 box-shadow: 0 0 12px black;
 			 text-decoration-color: #796ed4;
 			
             
@@ -153,7 +156,7 @@ if(!isset($_SESSION['loggedin'])){
 		   }
 	  
 	  .button-fix button{
-		margin:2px 0px;
+		margin:5px 0px;
 
 	  }
 		
@@ -373,7 +376,8 @@ if(!isset($_SESSION['loggedin'])){
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(item.address.substring(0,30).concat("...")),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -426,7 +430,8 @@ if(!isset($_SESSION['loggedin'])){
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(item.address.substring(0,30).concat("...")),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -479,7 +484,8 @@ if(!isset($_SESSION['loggedin'])){
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(item.address.substring(0,30).concat("...")),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -532,7 +538,8 @@ if(!isset($_SESSION['loggedin'])){
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(item.address.substring(0,30).concat("...")),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -602,7 +609,7 @@ if(!isset($_SESSION['loggedin'])){
 			var stnatleave = document.getElementById("stnatleave"+id).textContent;
 			var stpurpose = document.getElementById("stpurpose"+id).textContent;
 			var stshedornt = document.getElementById("stshedornt"+id).textContent;
-			var addr = document.getElementById("addr"+id).textContent;
+			var addr = document.getElementById("addrCopy"+id).textContent;
 			var stmbno = document.getElementById("stmbno"+id).textContent;
 			var stemai = document.getElementById("stemai"+id).textContent;
 			var ststrtdat = document.getElementById("ststrtdat"+id).textContent;
@@ -664,7 +671,8 @@ if(!isset($_SESSION['loggedin'])){
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(item.address.substring(0,30).concat("...")),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),

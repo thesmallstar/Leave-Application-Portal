@@ -30,7 +30,6 @@
 
 		    		if($applications == Null){
 		    			echo '<script language="javascript">alert("No applications currently")</script>';  
-		    	      	echo 'No applications currently';
 		    		}
 		    		else{		    
 		                // json_endcode(data)
