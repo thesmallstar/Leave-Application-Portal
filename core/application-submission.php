@@ -81,23 +81,28 @@
     	##### File Upload #####
 		#######################
 		
-    	
+		
 		if (count($_FILES['file']['name'])) {
 			$j = 0; 
 			
-			$target_path = "../uploads/"; 
-			for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
 		
+			for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
+			
 				$validextensions = array("jpeg", "jpg", "png"); 
 				$ext = explode('.', basename($_FILES['file']['name'][$i]));
-				$file_extension = end($ext); 
-				
-				$target_path = $target_path . md5(uniqid()) . "." . $ext[count($ext) - 1];
-			  
+				$file_extension = end($ext);
+				$target_path = "../uploads/"; 
+				$newname="";
+				$newname= md5(uniqid()) . "." . $ext[count($ext) - 1];
+				$target_path = $target_path . $newname;
+			    
 			  if (($_FILES["file"]["size"][$i] < 1000000) 
 						&& in_array($file_extension, $validextensions)) {
 					if (move_uploaded_file($_FILES['file']['tmp_name'][$i], $target_path)) {
 						echo $j. ').<span id="noerror">Image uploaded successfully!.</span><br/><br/>';
+						
+						$uploadedImageName.='_'. $newname;
+					
 					} else {
 						echo $j. ').<span id="error">please try again!.</span><br/><br/>';
 					}
@@ -120,7 +125,7 @@
 					$_SESSION['success'] ="Form has been submitted ";
                    
 					header("location: ../form.php"); 
-					exit(); 
+				    exit(); 
                 }
                   
                 else{
