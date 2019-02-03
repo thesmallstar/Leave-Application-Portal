@@ -1,7 +1,18 @@
+<?php session_start();
+
+if(isset($_SESSION['loggedin'])){
+  
+     header("location: ./admin_dashboard.php");
+
+}
+
+?>
+
+
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
 <body>
 
-<form action="" method="post">
+<form action="core/admin-login-verify.php" method="post">
   <h1 class="admin-heading">Welcome back Admin</h1>
 
   <div class="imgcontainer">
@@ -25,7 +36,7 @@
         
    <input type="submit" name="submit" value="submit" class="sub">
     <label>
-      <h3>
+      <h3 class="admin-forgot">
         <span>Not Admin ?? Click <a href="index.php">Here</a></span>
         <span class="psw">Forgot <a href="#">password?</a></span>
       </h3>

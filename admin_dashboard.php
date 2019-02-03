@@ -1,3 +1,14 @@
+<?php session_start();
+
+if(!isset($_SESSION['loggedin'])){
+  
+     header("location: ./adminLogin.php");
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +37,9 @@
 			background-color: #111;
 			overflow-x: hidden;
 			padding-top: 20px;
-			background: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8) );
+			background: #42275a;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #734b6d, #42275a);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #734b6d, #42275a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 			background-size: cover;
 			box-shadow: 0 0 10px #7b7777;
 		}
@@ -69,29 +82,54 @@
 		}
 
 		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
+			background:#474787;
+			border-radius: 10px;
+			overflow: hidden;
 			width: 100%;
+			margin: 0 auto;
+		}
+
+		table thead tr {
+   			height: 60px;
+			}
+
+	table thead tr th{
+		font-size: 18px;
+		color: #fff;
+		line-height: 1.2;
+		font-weight: unset;
+		width: 260px;
+		padding-left: 40px;
+		text-align: left;
+
+	}
+		tbody{
+			background:#fff;
+		}
+		tbody tr{
+			height: 50px;
+			font-size: 15px;
+			line-height: 1.2;
+			font-weight: unset;
 		}
 
 		td, th {
-			border: 1px solid #dddddd;
+			line-height: 1.2;
+			font-weight: unset;
+			width: 260px;
+			padding:5px;
+			color:#7a7a7a;
 			text-align: left;
-			padding: 4px;
-			padding-left: 5px;
 		}
 
-		th {
-			background: #796ed4;
-			color: #fff;
+
+
+		tbody tr:nth-child(2n) {
+    		background-color: #f5f5f5;
 		}
 
-		tr:nth-child(odd) {
-			background-color: #dddddd;
-		}
-
-		.row-data:hover {
-			background: rgba(0,0,255,.2);
+		tbody tr:hover {
+			background-color: #c2bfda;
 			cursor: pointer
 		}
 
@@ -101,7 +139,8 @@
 			 transition-duration: 0.4s;
 			 background-color:white;
                         color: black;
-			 border: 2px solid #796ed4;
+						border: 0;
+			 box-shadow: 0 0 12px black;
 			 text-decoration-color: #796ed4;
 			
             
@@ -115,55 +154,67 @@
 			 background-color: #796ed4; /* Green */
 			 color: #796ed4;
 		   }
-		
-		
+	  
+	  .button-fix button{
+		margin:5px 0px;
+
+	  }
 		
 	</style>
 </head>
 <body>
 	<div class="sidenav">
 	<div style="height: 220px;width: 100%;padding: 10px;">
-	<div style="background: url('peoM.jpg');height: inherit;width: inherit;background-size: cover;border-radius: 100%">
+	<div style="background: url('peoM.jpg');height: inherit;width: inherit;background-size: cover;border-radius: 100% ">
 	</div>
 	</div>
 	<ul style="padding: 10px; margin-top: 20px">
 		<br>
+	<div class="button-fix">
 		<button><li class="btn all_apps" >ALL</li></button>
-		<br>
-		<br>
+		
 		<button><li class="btn pen_apps">PENDING</li></button>
-		<br>
-		<br>
+		
+	
 		<button><li class="btn new_apps" >NEW!</li></button>
-		<br>
-		<br>
+		
+		
 		<button><li class="btn acc_apps" >ACCEPTED</li></button>
-		<br>
-		<br>
+	
+		
 		<button><li class="btn rej_apps" >REJECTED</li></button>
+		
 		<br>
 		<br>
-
+		<a href="core/adminlogout.php"><li  class="btn btn-danger" style="background:#FF1744; color:white; border:none; padding:0px; margin:0px;" >Log-out</li></a>
+		</div>
 	</div>
+	
 	</ul>
+	
 	<div>
-		<h3 id="navdars" style="text-align: center;float: right;margin-right: 40px;margin-bottom: 50px;border-bottom: 2px solid cornflowerblue;">ALL APPLICATIONS</h3>
+		<h3 id="navdars" style="text-align: center;float: right;margin-right: 40px;margin-bottom: 50px;border-bottom: 2px solid cornflowerblue;background: #00ffaf;padding: 5px;border-radius: 5px;">ALL APPLICATIONS</h3>
 		<div style="padding-left: 20px;width: 83%;margin-left: 250px;padding-right: 20px">
-			<table id="records_table" class="table-responsive" style="box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19), 0px 2px 20px 0 rgba(0, 0, 0, 0.24)">
+			<table id="records_table" class="table-responsive" style="box-shadow: box-shadow: 0 -3px 50px 0 rgba(0, 0, 0, 0.19), 0px 2px 16px 0 rgba(0, 0, 0, 0.24);">
+				<thead>
 				<tr>
-					<th style="padding: 10px">NAME</th>
-					<th style="padding: 10px">ENROLLMENT NUMBER</th>
-					<th style="padding: 10px">BRANCH</th>
-					<th style="padding: 10px">SEMESTER</th>
-					<th style="padding: 10px">NATURE OF LEAVE</th>
-					<th style="padding: 10px">PURPOSE</th>
-					<th style="padding: 10px">CLASSES SCHEDULED</th>
-					<th style="padding: 10px">ADDRESS</th>
-					<th style="padding: 10px">MOBILE</th>
-					<th style="padding: 10px">EMAIL</th>
-					<th style="padding: 10px">UPLOADS</th>
-					<th style="padding: 10px">STATUS</th>
+					<th style="padding: 10px">Name</th>
+					<th style="padding: 10px">Enrollment Number</th>
+					<th style="padding: 10px">Branch</th>
+					<th style="padding: 10px">Semester</th>
+					<th style="padding: 10px">Nature of Leave</th>
+					<th style="padding: 10px">Purpose</th>
+					<th style="padding: 10px">Classes Scheduled</th>
+					<th style="padding: 10px">Address</th>
+					<th style="padding: 10px">Mobile</th>
+					<th style="padding: 10px">Email</th>
+					<th style="padding: 10px">Uploads</th>
+					<th style="padding: 10px">Status</th>
 				</tr>
+				</thead>
+				<tbody>
+				<!-- tr -->
+				</tbody>
 			</table>
 		</div>
 		<div id="myModal" class="modal fade" role="dialog">
@@ -297,6 +348,7 @@
 		            console.log(data);
 					response = $.parseJSON(data);
 					$('#navdars').html("PENDING APPLICATIONS");
+					$('#navdars').css("background","#ffc400");
 					$("#records_table").find("tr:gt(0)").remove();
 				$(function() {
 					$.each(response, function(i, item) {
@@ -314,17 +366,22 @@
 							color = "#4caf50";
 							tity = "ACCEPTED";
 						}
+						var address = item.address.substring(0,30);
+						address = address.length>=30?address.concat("..."):address;
+						var purpose = item.purpose.substring(0,30);
+						purpose = purpose.length>=30?purpose.concat("..."):purpose;
 						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" class="row-data" data-toggle="modal" data-target="#myModal">').append(
 							$('<td id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
 							$('<td id="stsem'+item.id+'">').text(item.semester),
 							$('<td id="stnatleave'+item.id+'">').text(item.natureOfLeave),
-							$('<td id="stpurpose'+item.id+'">').text(item.purpose),
+							$('<td id="stpurpose'+item.id+'">').text(purpose),
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(address),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -349,6 +406,7 @@
 		            console.log(data);
 					response = $.parseJSON(data);
 					$('#navdars').html("NEW APPLICATIONS");
+					$('#navdars').css("background","#7cbeee");
 					$("#records_table").find("tr:gt(0)").remove();
 				$(function() {
 					$.each(response, function(i, item) {
@@ -366,17 +424,22 @@
 							color = "#4caf50";
 							tity = "ACCEPTED";
 						}
+						var address = item.address.substring(0,30);
+						address = address.length>=30?address.concat("..."):address;
+						var purpose = item.purpose.substring(0,30);
+						purpose = purpose.length>=30?purpose.concat("..."):purpose;
 						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" class="row-data" data-toggle="modal" data-target="#myModal">').append(
 							$('<td id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
 							$('<td id="stsem'+item.id+'">').text(item.semester),
 							$('<td id="stnatleave'+item.id+'">').text(item.natureOfLeave),
-							$('<td id="stpurpose'+item.id+'">').text(item.purpose),
+							$('<td id="stpurpose'+item.id+'">').text(purpose),
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(address),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -401,6 +464,7 @@
 		            console.log(data);
 					response = $.parseJSON(data);
 					$('#navdars').html("ACCEPTED APPLICATIONS");
+					$('#navdars').css("background","#4caf50");
 					$("#records_table").find("tr:gt(0)").remove();
 				$(function() {
 					$.each(response, function(i, item) {
@@ -418,17 +482,22 @@
 							color = "#4caf50";
 							tity = "ACCEPTED";
 						}
+						var address = item.address.substring(0,30);
+						address = address.length>=30?address.concat("..."):address;
+						var purpose = item.purpose.substring(0,30);
+						purpose = purpose.length>=30?purpose.concat("..."):purpose;
 						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" class="row-data" data-toggle="modal" data-target="#myModal">').append(
 							$('<td id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
 							$('<td id="stsem'+item.id+'">').text(item.semester),
 							$('<td id="stnatleave'+item.id+'">').text(item.natureOfLeave),
-							$('<td id="stpurpose'+item.id+'">').text(item.purpose),
+							$('<td id="stpurpose'+item.id+'">').text(purpose),
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(address),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -453,6 +522,7 @@
 		            console.log(data);
 					response = $.parseJSON(data);
 					$('#navdars').html("REJECTED APPLICATIONS");
+					$('#navdars').css("background","#FF1744");
 					$("#records_table").find("tr:gt(0)").remove();
 				$(function() {
 					$.each(response, function(i, item) {
@@ -470,17 +540,22 @@
 							color = "#4caf50";
 							tity = "ACCEPTED";
 						}
+						var address = item.address.substring(0,30);
+						address = address.length>=30?address.concat("..."):address;
+						var purpose = item.purpose.substring(0,30);
+						purpose = purpose.length>=30?purpose.concat("..."):purpose;
 						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" class="row-data" data-toggle="modal" data-target="#myModal">').append(
 							$('<td id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
 							$('<td id="stsem'+item.id+'">').text(item.semester),
 							$('<td id="stnatleave'+item.id+'">').text(item.natureOfLeave),
-							$('<td id="stpurpose'+item.id+'">').text(item.purpose),
+							$('<td id="stpurpose'+item.id+'">').text(purpose),
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(address),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
 							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
@@ -550,7 +625,7 @@
 			var stnatleave = document.getElementById("stnatleave"+id).textContent;
 			var stpurpose = document.getElementById("stpurpose"+id).textContent;
 			var stshedornt = document.getElementById("stshedornt"+id).textContent;
-			var addr = document.getElementById("addr"+id).textContent;
+			var addr = document.getElementById("addrCopy"+id).textContent;
 			var stmbno = document.getElementById("stmbno"+id).textContent;
 			var stemai = document.getElementById("stemai"+id).textContent;
 			var ststrtdat = document.getElementById("ststrtdat"+id).textContent;
@@ -602,20 +677,31 @@
 							opacit = .6;
 							tity = "ACCEPTED";
 						}
+						uplo = item.uploadedImageName;
+						str= uplo.split("_");
+						uplo="";
+						for(var i=1;i<str.length;i++){
+                                uplo+="<a href='./uploads/"+str[i]+"'>"+i+" "+"</a>"
+						}
+						var address = item.address.substring(0,30);
+						address = address.length>=30?address.concat("..."):address;
+						var purpose = item.purpose.substring(0,30);
+						purpose = purpose.length>=30?purpose.concat("..."):purpose;
 						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" style="opacity:'+opacit+'" class="row-data" data-toggle="modal" data-target="#myModal">').append(
 							$('<td style="padding-left: 10px;padding-right: 10px" id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
 							$('<td id="stsem'+item.id+'">').text(item.semester),
 							$('<td id="stnatleave'+item.id+'">').text(item.natureOfLeave),
-							$('<td id="stpurpose'+item.id+'">').text(item.purpose),
+							$('<td id="stpurpose'+item.id+'">').text(purpose),
 							$('<td id="stshedornt'+item.id+'">').text(item.classScheduledOnLeave.toUpperCase()),
 							$('<td style="display: none" id="ststrtdat'+item.id+'">').text(item.startDate.toUpperCase()),
 							$('<td style="display: none" id="stenddat'+item.id+'">').text(item.endDate.toUpperCase()),
-							$('<td id="addr'+item.id+'">').text(item.address),
+							$('<td id="addr'+item.id+'">').text(address),
+							$('<td id="addrCopy'+item.id+'" style="display:none">').text(item.address),
 							$('<td id="stmbno'+item.id+'">').text(item.mobile),
 							$('<td id="stemai'+item.id+'">').text(item.email),
-							$('<td>').append($('<a>').attr({href:"uploads/"+item.uploadedImageName,target:"_blank"}).text("UP")),
+							$('<td>').append($(uplo)),
 							$('<td id="status_app">').append($('<div title="'+tity+'" style="border:4px solid #222;background:'+color+';width: 25px;height: 25px;border-radius: 0%;margin: auto">'))
 						).appendTo('#records_table');
 						//console.log($tr.wrap('<p>').html());
