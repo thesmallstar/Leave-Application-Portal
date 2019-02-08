@@ -20,6 +20,7 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<style>
 
 		@import url('https://fonts.googleapis.com/css?family=Roboto');
@@ -98,6 +99,7 @@
 			overflow: hidden;
 			width: 100%;
 			margin: 0 auto;
+			position:relative;
 		}
 
 		table thead tr {
@@ -168,6 +170,41 @@
 			 background-color: #796ed4; /* Green */
 			 color: #796ed4;
 		   }
+
+		   .btn-custom{
+			   box-shadow:initial;
+			   width:initial;
+		   }
+
+		   @keyframes spinner-spin {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		.spinner {
+			display: flex;
+			justify-content:center;
+			align-items:center;
+			width: 80px;
+			height: 80px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			border: 4px solid rgba(0, 0, 0, 0.1);
+			border-left-color: #474787;
+			border-radius: 50%;
+			animation: spinner-spin 1.2s linear infinite;
+			margin-top: 10%;
+			display:block;
+		}
+
+		.tr-none{
+			display:none;
+		}
 	</style>
 </head>
 <body>
@@ -210,6 +247,7 @@
 				</tr>
 				</thead>
 				<tbody>
+				<tr id="loader" class="spinner"></tr>
 				<!-- tr -->
 				</tbody>
 			</table>
@@ -302,6 +340,22 @@
 							<p type="email" class="form-control" id="ans_mobile"></p>
 						</div>
 						</div>
+
+						<form action="./core/fileAddModal.php" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+						<input id="Application_id" type="hidden" name="file-id" value=""/>
+		   					<label class="control-label col-sm-2" for="email">Attachments</label>
+							<div class="col-sm-4">
+							<div class="file-field input-field">
+								<div id="files" style="margin-bottom: 8px;">
+									<div id="filediv"><input name="file[]" type="file" id="file"/></div>
+								</div>
+								<a id="add_more" class="btn-sm btn-info mt-4" ><i class="fas fa-plus"></i>Add</a>
+								<button type="submit" class="btn-sm btn-success btn-custom"><i class="fas fa-check-circle"></i>Submit</button>
+							</div>
+							</div>
+						</div>
+						</form>
 						<!--
 						<div class="form-group">
 						<label class="control-label col-sm-2" for="email">EMAIL</label>
@@ -380,6 +434,14 @@
 		        	// check for no application
 		        	// if data == 'No applications currently' else //logic ends
 		            // showdirectly
+
+					setTimeout(() => {
+						$('tr').removeClass('tr-none')
+      					$('#loader').removeClass('spinner');
+						$('#loader').css({
+							"display":"none"
+						});
+    					}, 4000);
 		            console.log(data);
 					response = $.parseJSON(data);
 
@@ -415,7 +477,7 @@
 						address = address.length>=30?address.concat("..."):address;
 						var purpose = item.purpose.substring(0,30);
 						purpose = purpose.length>=30?purpose.concat("..."):purpose;
-						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" style="opacity:'+opacit+'" class="row-data" data-toggle="modal" data-target="#myModal">').append(
+						var $tr = $('<tr id="row-data" onclick="ShowDet('+item.id+')" style="opacity:'+opacit+'" class="row-data tr-none" data-toggle="modal" data-target="#myModal">').append(
 							$('<td style="padding-left: 10px;padding-right: 10px" id="stname'+item.id+'">').text(item.studentName),
 							$('<td id="stroll'+item.id+'">').text(item.rollNumber.toUpperCase()),
 							$('<td id="stbrnch'+item.id+'">').text(item.branch.toUpperCase()),
@@ -439,5 +501,47 @@
 		        }
 			})
 		});
+
+		// Add More Files		
+$(document).ready(function() {
+
+$('#add_more').click(function() {
+	var div_files = '<div id="filediv"><input name="file[]" type="file" id="file"></div>'
+	$('#files').append(div_files).fadeIn('slow');
+});
+
+
+$('body').on('change', '#file', function(){
+		if (this.files && this.files[0]) {
+			abc += 1; 
+			
+			var z = abc - 1;
+			var x = $(this).parent().find('#previewimg' + z).remove();
+			$(this).before("<div id='abcd"+ abc +"' class='abcd'><img id='previewimg" + abc + "' src=''/></div>");
+		
+			var reader = new FileReader();
+			reader.onload = imageIsLoaded;
+			reader.readAsDataURL(this.files[0]);
+			
+			$(this).hide();
+			$("#abcd"+ abc).append($("<img/>", {id: 'img1', src: './x.png', alt: 'delete'}).click(function() {
+			$(this).parent().parent().remove();
+			}));
+		}
+	});
+
+	function imageIsLoaded(e) {
+		$('#previewimg' + abc).attr('src', e.target.result);
+	};
+
+	$('#upload').click(function(e) {
+		var name = $(":file").val();
+		if (!name)
+		{
+			alert("First Image Must Be Selected");
+			e.preventDefault();
+		}
+	});
+	});
 	</script>
 </html>
