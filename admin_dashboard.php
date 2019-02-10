@@ -12,6 +12,7 @@ if(!isset($_SESSION['loggedin'])){
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>admin</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -254,6 +255,32 @@ if(!isset($_SESSION['loggedin'])){
 					<!-- tr -->	  
 				</tbody>
 			</table>
+			<button type="button" style="visiblity:none; background-color:white;"id="mybtn"  data-toggle="modal" data-target="#ModalCenter" hidden></button>
+
+<!-- Modal -->
+<div style="position: absolute;
+  z-index: 1060;">
+
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLongTitle">Notice</h5>
+       
+          
+        </button>
+      </div>
+      <div class="modal-body">
+      Once this application is accepted you cannot change it. 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Back</button>
+        <button type="button" id="accept" class="btn btn-success">Yes Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 			<div id="noapp" class="alert alert-danger" style="text-align:center; margin:10px 10px; display:none;" role="alert">
          <strong>No </strong> applications here
 </div>
@@ -373,11 +400,14 @@ if(!isset($_SESSION['loggedin'])){
 		</div>
 		</div>
 	
+    
+
 </body>
 
 		
 	
 <script type="text/javascript" src="js-lib/jq.min.js"></script>
+
 	<script type="text/javascript">
 
 		$(document).on('click','.all_apps',function() {
@@ -403,6 +433,9 @@ if(!isset($_SESSION['loggedin'])){
 
 		            console.log(data);
 					$('#noapp').hide();
+					showall();
+					
+					$('.pndg').hide();
 					$('#navdars').html("PENDING APPLICATIONS");
 					$('#navdars').css("background","#ffc400");
 					$("#records_table").find("tr:gt(0)").remove();
@@ -577,6 +610,11 @@ if(!isset($_SESSION['loggedin'])){
 
                           
 					$('#noapp').hide();
+					showall();
+					
+					$('.Acpt').hide();
+					$('.pndg').hide();
+					$('.rjct').hide();
 					$('#navdars').html("ACCEPTED APPLICATIONS");
 					$('#navdars').css("background","#4caf50");
 					$("#records_table").find("tr:gt(0)").remove();
@@ -665,6 +703,8 @@ if(!isset($_SESSION['loggedin'])){
     					}, 4000);
 		            console.log(data);
 					$('#noapp').hide();
+					showall();
+				    $('.rjct').hide();
 					
 					$('#navdars').html("REJECTED APPLICATIONS");
 					$('#navdars').css("background","#FF1744");
@@ -737,15 +777,30 @@ if(!isset($_SESSION['loggedin'])){
 		//on accept ajax 
 		//on pending ajax
 		//on reject ajax
-		$(document).on('click','.Acpt',function() {
+		function showall() {
+			$('.pndg').show();
+			$('.acpt').show();
+			$('.rjct').show();
+     
+}
+
+$(document).on('click','.Acpt',function() {
+	$('#mybtn').click();
+		
+		
+		});
+
+		$(document).on('click','#accept',function() {
+			
 			var z_id = ($('#Application_id').attr('value'));
+			
 			$.ajax({
 		        url: './core/admin-action-taken.php',
 		        type: 'post',
 		        data: {method: 'AcAppsUP',z_id},
 		        success: function(data) {
 		            console.log(data);
-		        }
+				 }
 	    	});
 			location.reload();
 		});
@@ -757,6 +812,7 @@ if(!isset($_SESSION['loggedin'])){
 		        type: 'post',
 		        data: {method: 'RejAppsUP',z_id},
 		        success: function(data) {
+				
 		           console.log(data);
 		        }
 	    	});
@@ -771,6 +827,8 @@ if(!isset($_SESSION['loggedin'])){
 		        data: {method: 'PenAppsUP',z_id},
 		        success: function(data) {
 		            console.log(data);
+				
+		
 		        }
 	    	});
 			location.reload();
@@ -891,5 +949,10 @@ if(!isset($_SESSION['loggedin'])){
 		        }
 	    	})
 		});
+	
+ 
+  	
+$('#mybtn').hide();
+
 	</script>
 </html>
