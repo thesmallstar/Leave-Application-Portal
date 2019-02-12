@@ -375,7 +375,8 @@ if(!isset($_SESSION['loggedin'])){
 	
 </body>
 
-		
+		//Pagination is being added.
+		//Removed buggy pagination
 	
 <script type="text/javascript" src="js-lib/jq.min.js"></script>
 	<script type="text/javascript">
